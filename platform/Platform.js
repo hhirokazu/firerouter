@@ -438,6 +438,9 @@ class Platform {
     // Base implementation - can be overridden by platform-specific implementations
   }
 
+  async processHostapdLog(line, config) {
+  }
+
   needResetLinkBeforeSwitchWifi() {
     return true;
   }
