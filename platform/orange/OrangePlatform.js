@@ -834,6 +834,12 @@ class OrangePlatform extends Platform {
     }
   }
 
+  async processHostapdLog(line, config) {
+    if (line.includes('DFS-CAC-START')) {
+      await this.skipDFSCAC();
+    }
+  }
+
   async onEvent(event, data) {
     await lock.acquire(LOCK_AP_STATE_AUTOMATA, async () => {
       switch (event) {
