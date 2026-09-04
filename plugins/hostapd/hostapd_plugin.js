@@ -61,6 +61,14 @@ class HostapdPlugin extends Plugin {
     await this.createDirectories();
     await this.installHostapdScript();
     await this.installSystemService();
+    await this.watchHostapdLog();
+  }
+
+  static async watchHostapdLog() {
+    const LogReader = require('../../util/LogReader.js');
+    const reader = new LogReader('/var/log/hostapd.log', true);
+    reader.on('line', (line) => platform.processHostapdLog(line, {}));
+    reader.watch();
   }
 
   static async createDirectories() {
